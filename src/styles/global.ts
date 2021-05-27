@@ -3,9 +3,7 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
-
-  @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Roboto+Mono:wght@200;400;700&display=swap');
-
+  
   * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
