@@ -1,7 +1,7 @@
-import React from 'react';
+import { memo } from 'react';
 import styled from 'styled-components';
 
-export const DeleteLinkButton = styled.button`
+const DeleteLinkButton = styled.button`
   width: 20px;
   height: 20px;
   background: url('https://icongr.am/entypo/cross.svg?size=128&color=ff0040')
@@ -10,7 +10,7 @@ export const DeleteLinkButton = styled.button`
   border: 0;
 `;
 
-export const CopyLinkButton = styled.button`
+const CopyLinkButton = styled.button`
   width: 20px;
   height: 20px;
   background: url('https://icongr.am/feather/copy.svg?size=128&color=5c5c5c')
@@ -19,8 +19,17 @@ export const CopyLinkButton = styled.button`
   border: 0;
 `;
 
-const Buttons = () => {
-  return <button aria-label="handler" type="button" />;
-};
+interface ButtonTypes {
+  delete: Function;
+  copy: Function;
+  [prop:string]: any;
+}
 
-export default Buttons;
+const Buttons:ButtonTypes = {
+  delete: DeleteLinkButton,
+  copy: CopyLinkButton
+}
+
+const Button = memo((type: string) => Buttons[type]);
+
+export default Button;

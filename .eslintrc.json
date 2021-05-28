@@ -37,7 +37,7 @@
     "no-param-reassign": "off",
     "arrow-body-style": [
       "error",
-      "always"
+      "as-needed"
     ],
     "jsx-quotes": [
       2
