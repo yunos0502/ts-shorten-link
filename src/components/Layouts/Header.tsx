@@ -40,12 +40,10 @@ const Head = styled.header`
   }
 `;
 
-const Header = memo(() => {
-  return (
+const Header = memo(() => (
     <Head>
       <h1>Shorten Links</h1>
     </Head>
-  );
-});
+  ));
 
 export default Header;

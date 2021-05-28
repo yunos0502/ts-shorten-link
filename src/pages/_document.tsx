@@ -9,12 +9,13 @@ export default class MyDocument extends Document {
 
     try {
       ctx.renderPage = () =>
-        {return originalRenderPage({
-          enhanceApp: (App) => {return (props) =>
-            {return sheet.collectStyles(<App {...props} />)}},
-        })};
+        originalRenderPage({
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
+        });
 
       const initialProps = await Document.getInitialProps(ctx);
+      
       return {
         ...initialProps,
         styles: (

@@ -3,8 +3,7 @@ import Head from 'next/head';
 import { AppProps } from 'next/app';
 import GlobalStyle from '../styles/global';
 
-const ShortLinkApp = memo(({ Component, pageProps }: AppProps) => {
-  return (
+const ShortLinkApp = memo(({ Component, pageProps }: AppProps) => (
     <>
       <Head>
         <meta charSet="utf-8" />
@@ -15,7 +14,6 @@ const ShortLinkApp = memo(({ Component, pageProps }: AppProps) => {
       <GlobalStyle />
       <Component {...pageProps} />
     </>
-  );
-});
+  ));
 
 export default ShortLinkApp;
