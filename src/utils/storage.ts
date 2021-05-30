@@ -2,7 +2,7 @@ export default class LocalStorage {
 
   static $inject = ['$window'];
 
-  constructor($window: { localStorage: any; }) {
+  constructor($window: { localStorage: {}; }) {
     if ($window.localStorage) {
       this.storage = $window.localStorage;
     } else {
