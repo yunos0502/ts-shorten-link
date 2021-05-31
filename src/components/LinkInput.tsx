@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { LegacyRef, memo, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 
 const InputBox = styled.div`
@@ -37,17 +37,43 @@ const InputBox = styled.div`
   }
 `;
 
-const LinkInput = memo(() => {
-    return (
-      <InputBox>
-        <input type="text" id="title" placeholder="TITLE" />
-        <input />
-        <button type="button">
-          OK
-        </button>
-      </InputBox>
-    );
-  },
+type InputProps = {
+  onTransformLink: Function, 
+  inputRef: LegacyRef<HTMLInputElement>
+}
+
+const LinkInput = memo(({ onTransformLink, inputRef }: InputProps) => {
+  const titleRef = useRef<HTMLInputElement>(null);
+
+  const postInputLink = (url: string) => {
+    const title: any = titleRef.current;
+    onTransformLink(title?.value, url);
+    title.value = '';
+  }
+
+  const onClickButton = useCallback((e) => {
+    postInputLink(e.target.previousSibling.value);
+  }, []);
+
+  const onPressInput = useCallback((e) => {
+    if (e.code !== 'Enter') return;
+    postInputLink(e.target.value);
+  }, []);
+
+  return (
+    <InputBox>
+      <input type="text" id="title" placeholder="TITLE" ref={titleRef} />
+      <input
+        type="text"
+        onKeyPress={onPressInput}
+        ref={inputRef}
+        placeholder="URL"
+      />
+      <button type="button" onClick={onClickButton}>
+        OK
+      </button>
+    </InputBox>
+  )}
 );
 
 export default LinkInput;
