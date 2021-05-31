@@ -1,8 +1,8 @@
 import API from '../api';
 
-export async function fetchAPI(setTransformLink: (arg0: any) => void, linkItem: any) {
+export async function fetchAPI(setTransformLink: Function, linkItem: any) {
   try {
-    const fetchItem = await API.getShorten(linkItem);
+    const fetchItem = await API.getBitlinks(linkItem);
     setTransformLink(fetchItem);
   } catch (error) {
     console.error(error);
@@ -18,7 +18,10 @@ export const Messages = {
   blankValueFailed: '변경할 url을 입력해주세요 🤔',
 }
 
-export const urlRegex = new RegExp(
-  '(http|https|ftp|telnet|news|irc)://([-/.a-zA-Z0-9_~#%$?&=:200-377()]+)',
-  'gi',
+const urlRegex = new RegExp(
+  /https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}/, 'gi',
 );
+  
+export const checkRegex = (url: string) => urlRegex.test(url);
+
+export const findUrl = (fetchLinks: [], transformLink: {long_url: string}) => fetchLinks.find((item: { long_url: string; }) => item.long_url === transformLink.long_url);
