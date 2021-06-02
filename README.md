@@ -9,8 +9,13 @@
 
 ---
 
-## ⚙️ 실행 방법
+## ⚙️ Getting started
 
-```bash
-yarn dev
-```
+### Installation
+
+`yarn` to install the website's npm dependencies
+
+### Running locally
+
+1. `yarn dev` to start the hot-reloading development server
+2. `open http://localhost:3060` to open the site in your favorite browser
