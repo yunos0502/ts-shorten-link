@@ -24,4 +24,4 @@ const urlRegex = new RegExp(
   
 export const checkRegex = (url: string) => urlRegex.test(url);
 
-export const findUrl = (fetchLinks: [], transformLink: {long_url: string}) => fetchLinks.find((item: { long_url: string; }) => item.long_url === transformLink.long_url);
+export const findUrl = (fetchLinks: { long_url: string; }[], transformLink: { long_url: string; }) => fetchLinks.find((item) => item.long_url === transformLink.long_url);
