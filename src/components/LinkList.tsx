@@ -1,5 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, MouseEventHandler, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Messages } from '../utils/types';
+import LinkItem from './LinkItem';
 
 const Lists = styled.ul`
   max-width: 600px;
@@ -48,15 +50,55 @@ const Lists = styled.ul`
   }
 `;
 
-const LinkList = memo(() => {
+type ListProps = {
+  links: [], 
+  onDeleteLink: MouseEventHandler<HTMLButtonElement>, 
+  setState: Function, 
+  setMessage: Function
+}
+
+const LinkList = memo(({ links, onDeleteLink, setState, setMessage }: ListProps) => {
+  const [loading, setLoading] = useState(false);
+
+  const copyLinkHandler = (link: string) => {
+    if (link && document.hasFocus()) {
+      navigator.clipboard
+        .writeText(link)
+        .then(() => {
+          setState(true);
+          setMessage(Messages.CopyedSuccess);
+        })
+        .catch((err) => {
+          console.error('클립보드에 복사 실패', err);
+          setMessage(Messages.Failed);
+        });
+    }
+  };
+
+  useEffect(() => {
+    const loadingTimeout = setTimeout(() => setLoading(true), 1000);
+    return () => clearTimeout(loadingTimeout);
+  }, [setLoading]);
+  
   return (
     <Lists>
       <li className="title">
         <span>title</span>
         <span>shorten link</span>
       </li>
+      {loading &&
+        links &&
+        links.map((link) => {
+          const {id} = link;
+          return (<LinkItem
+            key={id}
+            link={link}
+            copyLinkHandler={copyLinkHandler}
+            onDeleteLink={onDeleteLink}
+          />)
+        })}
     </Lists>
-  );
-});
+  )}
+);
 
 export default LinkList;

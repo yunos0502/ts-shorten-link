@@ -7,7 +7,7 @@ interface ItemProps {
     title: string,
     link: string
   }, 
-  copyLinkHandler: MouseEventHandler<HTMLButtonElement>, 
+  copyLinkHandler: any, 
   onDeleteLink: MouseEventHandler<HTMLButtonElement>
 }
 
