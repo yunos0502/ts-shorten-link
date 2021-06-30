@@ -40,11 +40,10 @@ const Home: NextPage = memo(() => {
   }, []);
 
   const onDeleteLink = useCallback((e: MouseEvent<HTMLButtonElement>): void => {
-    console.log(e);
-    // const { _id } = e.target.closest('li').dataset;
-    // const filterLinks = fetchLinks.filter(link => link.id !== _id);
+    const _id = e.currentTarget?.parentElement?.getAttribute('data-_id');
+    const filterLinks = fetchLinks.filter((link: { id: string }) => link.id !== _id);
 
-    // setFetchLinks(filterLinks);
+    setFetchLinks(filterLinks);
     setMessage(Messages.DeletedSuccess);
     setState(true);
   }, [fetchLinks]);
